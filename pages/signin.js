@@ -22,8 +22,8 @@ export default {
             type="password"
             required
             ></v-text-field>
-            <p>Don't have an account? <router-link to="/sign-up">Sign up here</router-link></p>
-            <p><router-link to="/sign-up">Forgot your password?</router-link></p>
+            <p>Don't have an account? <a @click="navigate">Sign up here</a></p>
+            <p><a @click="navigate">Forgot your password?</a></p>
             <v-btn
             color="primary"
             class="mr-4"
@@ -48,14 +48,17 @@ export default {
 
   methods: {
     signin() {
-        debugger
       let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
       const idx = accounts.findIndex((acc) => acc.email === this.email);
       const account = idx > -1 ? accounts[idx] : null;
       if (account && account.password === this.password) {
         localStorage.setItem("token", true);
-        this.$router.push("/home");
+        // this.$router.push("/home");
+        this.$emit('update', 'home')
       }
     },
+    navigate() {
+      this.$emit('update', 'signup');
+    }
   },
 };

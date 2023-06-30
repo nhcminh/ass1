@@ -25,7 +25,7 @@ export default {
             type="password"
             required
           ></v-text-field>
-          <p>Already have account? <router-link to="/sign-in">Sign in here</router-link></p>
+          <p>Already have account? <a @click="navigate">Sign in here</a></p>
           <v-spacer></v-spacer>
           <v-btn color="primary" block @click="signup">Sign Up</v-btn>
         </v-form>
@@ -59,8 +59,12 @@ data() {
         let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
         accounts.push({ email: this.email, password: this.password });
         localStorage.setItem("accounts", JSON.stringify(accounts));
-        this.$router.push("/sign-in");
+        // this.$router.push("/sign-in");
+        this.$emit('update', 'signin')
       }
+    },
+    navigate() {
+      this.$emit('update', 'signin');
     }
   }
 };

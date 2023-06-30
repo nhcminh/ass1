@@ -1,10 +1,11 @@
 export default {
+  props: ["isLogin"],
   template: `
   <div>
     <v-app-bar app>
         <v-spacer></v-spacer>
-        <v-btn>
-        Sign In
+        <v-btn @click="handleEvent">
+        {{this.isLogin ? 'Sign Out' : 'Sign In'}}
         </v-btn>
     </v-app-bar>
   
@@ -20,4 +21,9 @@ export default {
     </v-main>
   </div>
     `,
+  methods: {
+    handleEvent() {
+      this.$emit("update", "signin");
+    },
+  },
 };
